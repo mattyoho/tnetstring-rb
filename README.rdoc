@@ -1,0 +1,13 @@
+== tnetstring-rb
+
+Typed netstrings were conceived by Zed Shaw as a convenient text format for
+exchanging small amounts of data over the network. They are meant as an
+alternative to JSON that are easier to handle in low-level network code.
+See his initial implementation here:
+{typed netstrings in Python}[http://codepad.org/xct0E5ac].
+
+== Installation
+
+It's a gem, so do the usual:
+
+    [sudo] gem install tnetstring

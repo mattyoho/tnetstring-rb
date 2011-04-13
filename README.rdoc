@@ -13,3 +13,8 @@ And see the official specification here:
 It's a gem, so do the usual:
 
     [sudo] gem install tnetstring
+
+== to_tnetstring
+
+tnetstring adds a <code>.to_netstring</code> to Object. It does what it says on the tin,
+falling back to calling <code>self.to_s</code>.

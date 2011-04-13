@@ -90,3 +90,37 @@ module TNetstring
     raise message unless truthy
   end
 end
+
+class Object
+  def to_tnetstring(sigil=",")
+    self_as_string = self.to_s
+    [self_as_string.length, ":", self_as_string, sigil].join
+  end
+end
+
+class NilClass
+  def to_tnetstring
+    "".to_tnetstring("~")
+  end
+end
+
+# XXX I'm sure there's a cute metaprogramming trick to make this less repetitive, but I'll find it later.
+class Integer
+  def to_tnetstring
+    super("#")
+  end
+end
+
+class TrueClass
+  def to_tnetstring
+    super "!"
+  end
+end
+
+class FalseClass
+  def to_tnetstring
+    super "!"
+  end
+end
+
+# XXX Actually implement the compound types

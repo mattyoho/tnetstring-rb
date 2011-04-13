@@ -1,3 +1,6 @@
+== 0.2.0 / 2011-04-13
+* Feature Update
+  * Bring parsing inline with tnetstrings.org reference spec, thanks to twopir
 == 0.1.0 / 2011-04-12
 * Initial Release
   * Pure-Ruby implementation of Zed Shaw's initial example

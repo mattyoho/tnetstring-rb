@@ -37,6 +37,14 @@ describe TNetstring do
     expect { TNetstring.parse('1:x~') }.to raise_error
   end
 
+  it "parses a boolean" do
+    TNetstring.parse('4:true!').should == true
+  end
+
+  it "raises on a bad boolean" do
+    expect { TNetstring.parse('5:pants!') }.to raise_error
+  end
+
   it "raises on unknown type" do
     expect { TNetstring.parse('0:)') }.to raise_error
   end

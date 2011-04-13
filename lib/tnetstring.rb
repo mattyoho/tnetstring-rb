@@ -17,6 +17,8 @@ module TNetstring
     when '~'
       assert payload.length == 0, "Payload must be 0 length for null."
       nil
+    when '!'
+      parse_boolean(payload)
     else
       assert false, "Invalid payload type: #{payload_type}"
     end
@@ -69,6 +71,17 @@ module TNetstring
     assert value, "Got an invalid value, null not allowed."
 
     [key, value, extra]
+  end
+
+  def self.parse_boolean(data)
+    case data
+    when "false"
+      false
+    when "true"
+      true
+    else
+      raise "Boolean wasn't 'true' or 'false'"
+    end
   end
 
   def self.assert(truthy, message)

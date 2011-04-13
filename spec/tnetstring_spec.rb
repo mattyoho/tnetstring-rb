@@ -45,6 +45,14 @@ describe TNetstring do
     expect { TNetstring.parse('5:pants!') }.to raise_error
   end
 
+  it "raises with negative length" do
+    expect { TNetstring.parse("-1:asd,") }.to raise_error
+  end
+
+  it "raises with absurd length" do
+    expect { TNetstring.parse("1000000000:asd,") }.to raise_error
+  end
+
   it "raises on unknown type" do
     expect { TNetstring.parse('0:)') }.to raise_error
   end

@@ -29,6 +29,8 @@ module TNetstring
     assert data, "Invalid data to parse, it's empty."
     length, extra = data.split(':', 2)
     length = length.to_i
+    assert length <= 999_999_999, "Data is longer than the specification allows"
+    assert length >= 0, "Data length cannot be negative!"
 
     payload, extra = extra[0, length], extra[length..-1]
     assert extra, "No payload type: %s, %s" % [payload, extra]

@@ -29,6 +29,14 @@ describe TNetstring do
     TNetstring.parse('34:5:hello,22:11:12345678901#4:this,]}').should == {"hello" => [12345678901, 'this']}
   end
 
+  it "parses a null" do
+    TNetstring.parse('0:~').should == nil
+  end
+
+  it "raises on a lengthy null" do
+    expect { TNetstring.parse('1:x~') }.to raise_error
+  end
+
   it "raises on unknown type" do
     expect { TNetstring.parse('0:)') }.to raise_error
   end

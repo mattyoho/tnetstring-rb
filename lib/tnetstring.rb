@@ -14,6 +14,9 @@ module TNetstring
       parse_list(payload)
     when '}'
       parse_dictionary(payload)
+    when '~'
+      assert payload.length == 0, "Payload must be 0 length for null."
+      nil
     else
       assert false, "Invalid payload type: #{payload_type}"
     end

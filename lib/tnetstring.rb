@@ -27,7 +27,7 @@ module TNetstring
 
     payload, extra = extra[0, length], extra[length..-1]
     assert extra, "No payload type: %s, %s" % [payload, extra]
-    payload_type, remain = extra[0], extra[1..-1]
+    payload_type, remain = extra[0,1], extra[1..-1]
 
     assert payload.length == length, "Data is wrong length %d vs %d" % [length, payload.length]
     [payload, payload_type, remain]

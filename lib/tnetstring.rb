@@ -8,7 +8,7 @@ module TNetstring
     value = case payload_type
     when '#'
       payload.to_i
-    when '"'
+    when ','
       payload
     when ']'
       parse_list(payload)

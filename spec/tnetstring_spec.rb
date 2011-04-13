@@ -6,11 +6,11 @@ describe TNetstring do
   end
 
   it "parses an empty string" do
-    TNetstring.parse('0:"').should == ""
+    TNetstring.parse('0:,').should == ""
   end
 
   it "parses a string" do
-    TNetstring.parse('12:this is cool"').should == "this is cool"
+    TNetstring.parse('12:this is cool,').should == "this is cool"
   end
 
   it "parses to an empty array" do
@@ -18,7 +18,7 @@ describe TNetstring do
   end
 
   it "parses an arbitrary array of ints and strings" do
-    TNetstring.parse('24:5:12345#5:67890#5:xxxxx"]').should == [12345, 67890, 'xxxxx']
+    TNetstring.parse('24:5:12345#5:67890#5:xxxxx,]').should == [12345, 67890, 'xxxxx']
   end
 
   it "parses to an empty hash" do
@@ -26,7 +26,7 @@ describe TNetstring do
   end
 
   it "parses an arbitrary hash of ints, strings, and arrays" do
-    TNetstring.parse('34:5:hello"22:11:12345678901#4:this"]}').should == {"hello" => [12345678901, 'this']}
+    TNetstring.parse('34:5:hello,22:11:12345678901#4:this,]}').should == {"hello" => [12345678901, 'this']}
   end
 
   it "raises on unknown type" do

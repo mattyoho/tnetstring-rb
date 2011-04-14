@@ -128,3 +128,9 @@ class Array
     self.collect {|obj| obj.to_tnetstring}.join.to_tnetstring "]"
   end
 end
+
+class Hash
+  def to_tnetstring
+    self.collect {|k,v| k.to_s.to_tnetstring + v.to_tnetstring}.join.to_tnetstring "}"
+  end
+end

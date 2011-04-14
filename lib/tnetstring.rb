@@ -98,13 +98,13 @@ class Object
   end
 end
 
+# XXX I'm sure there's a cute metaprogramming trick to make this less repetitive, but I'll find it later.
 class NilClass
   def to_tnetstring
-    "".to_tnetstring "~"
+    super "~"
   end
 end
 
-# XXX I'm sure there's a cute metaprogramming trick to make this less repetitive, but I'll find it later.
 class Integer
   def to_tnetstring
     super "#"

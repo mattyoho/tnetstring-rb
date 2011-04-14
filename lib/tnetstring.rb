@@ -107,7 +107,7 @@ end
 # XXX I'm sure there's a cute metaprogramming trick to make this less repetitive, but I'll find it later.
 class Integer
   def to_tnetstring
-    super("#")
+    super "#"
   end
 end
 

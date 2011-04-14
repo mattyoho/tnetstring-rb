@@ -100,7 +100,7 @@ end
 
 class NilClass
   def to_tnetstring
-    "".to_tnetstring("~")
+    "".to_tnetstring "~"
   end
 end
 

@@ -13,14 +13,14 @@ describe TNetstring do
    "this is cool".to_tnetstring.should == '12:this is cool,'
   end
 
-#  it "dumps to an empty array" do
-#    [].to_tnetstring.should == '0:]'
-#  end
-#
-#  it "dumps an arbitrary array of ints and strings" do
-#    [12345, 67890, 'xxxxx'].to_tnetstring.should == '24:5:12345#5:67890#5:xxxxx,]'
-#  end
-#
+  it "dumps to an empty array" do
+    [].to_tnetstring.should == '0:]'
+  end
+
+  it "dumps an arbitrary array of ints and strings" do
+    [12345, 67890, 'xxxxx'].to_tnetstring.should == '24:5:12345#5:67890#5:xxxxx,]'
+  end
+
 #  it "dumps to an empty hash" do
 #    {}.to_tnetstring.should == '0:}'
 #  end

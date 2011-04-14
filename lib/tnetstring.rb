@@ -123,4 +123,8 @@ class FalseClass
   end
 end
 
-# XXX Actually implement the compound types
+class Array
+  def to_tnetstring
+    self.collect {|obj| obj.to_tnetstring}.join.to_tnetstring "]"
+  end
+end

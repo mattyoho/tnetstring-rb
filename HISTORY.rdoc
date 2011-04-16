@@ -1,3 +1,9 @@
+== 0.3.0 / 2011-04-16
+* New Feature
+  * Can encode primatives according to the tnetstring spec
+* API Change
+  * TNetstring#parse now returns remainder of input
+  * TNetstring#parse_tnetstring removed (effectively, renamed to #parse)
 == 0.2.0 / 2011-04-13
 * Feature Update
   * Bring parsing inline with tnetstrings.org reference spec, thanks to twopir

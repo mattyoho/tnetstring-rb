@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'tnetstring'
   s.version     = TNetstring::Version::STRING
-  s.summary     = "Ruby implementation of the typed netstring specification."
-  s.description = "Ruby implementation of the typed netstring specification, a simple data interchange format better suited to low-level network communication than JSON. See http://tnetstrings.org/ for more details."
+  s.summary     = "Ruby implementation of the tagged netstring specification."
+  s.description = "Ruby implementation of the tagged netstring specification, a simple data interchange format better suited to low-level network communication than JSON. See http://tnetstrings.org/ for more details."
 
   s.required_ruby_version     = '>= 1.8.7'
   s.required_rubygems_version = ">= 1.3.7"

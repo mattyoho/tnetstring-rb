@@ -1,10 +1,6 @@
 module TNetstring
   def self.parse(tnetstring)
-    parse_tnetstring(tnetstring)[0]
-  end
-
-  def self.parse_tnetstring(data)
-    payload, payload_type, remain = parse_payload(data)
+    payload, payload_type, remain = parse_payload(tnetstring)
     value = case payload_type
     when '#'
       payload.to_i
@@ -43,11 +39,11 @@ module TNetstring
   def self.parse_list(data)
     return [] if data.length == 0
     list = []
-    value, remain = parse_tnetstring(data)
+    value, remain = parse(data)
     list << value
 
     while remain.length > 0
-      value, remain = parse_tnetstring(remain)
+      value, remain = parse(remain)
       list << value
     end
     list
@@ -67,9 +63,9 @@ module TNetstring
   end
 
   def self.parse_pair(data)
-    key, extra = parse_tnetstring(data)
+    key, extra = parse(data)
     assert extra, "Unbalanced dictionary store."
-    value, extra = parse_tnetstring(extra)
+    value, extra = parse(extra)
     assert value, "Got an invalid value, null not allowed."
 
     [key, value, extra]

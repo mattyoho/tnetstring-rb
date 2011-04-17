@@ -113,5 +113,9 @@ describe TNetstring do
         expect { TNetstring.encode({123 => "456"}) }.to raise_error(TNetstring::ProcessError)
       end
     end
+
+    it "rejects non-primitives" do
+      expect { TNetstring.encode(Object.new) }.to raise_error(TNetstring::ProcessError)
+    end
   end
 end

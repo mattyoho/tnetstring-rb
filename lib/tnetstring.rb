@@ -101,7 +101,7 @@ module TNetstring
     elsif obj.kind_of?(Hash)
       encode_dictionary(obj)
     else
-      assert false, "Object must be of a primitive type"
+      assert false, "Object must be of a primitive type: #{obj.inspect}"
     end
   end
 

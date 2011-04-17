@@ -23,7 +23,7 @@ module TNetstring
     [value, remain]
   end
 
-  def self.parse_payload(data)
+  def self.parse_payload(data) # :nodoc:
     assert data, "Invalid data to parse, it's empty."
     length, extra = data.split(':', 2)
     length = length.to_i
@@ -38,7 +38,7 @@ module TNetstring
     [payload, payload_type, remain]
   end
 
-  def self.parse_list(data)
+  def self.parse_list(data) # :nodoc:
     return [] if data.length == 0
     list = []
     value, remain = parse(data)
@@ -51,7 +51,7 @@ module TNetstring
     list
   end
 
-  def self.parse_dictionary(data)
+  def self.parse_dictionary(data) # :nodoc:
     return {} if data.length == 0
 
     key, value, extra = parse_pair(data)
@@ -64,7 +64,7 @@ module TNetstring
     result
   end
 
-  def self.parse_pair(data)
+  def self.parse_pair(data) # :nodoc:
     key, extra = parse(data)
     assert extra, "Unbalanced dictionary store."
     value, extra = parse(extra)
@@ -73,7 +73,7 @@ module TNetstring
     [key, value, extra]
   end
 
-  def self.parse_boolean(data)
+  def self.parse_boolean(data) # :nodoc:
     case data
     when "false"
       false
@@ -104,12 +104,12 @@ module TNetstring
     end
   end
 
-  def self.encode_list(list)
+  def self.encode_list(list) # :nodoc:
     contents = list.map {|item| encode(item)}.join
     "#{contents.length}:#{contents}]"
   end
 
-  def self.encode_dictionary(dict)
+  def self.encode_dictionary(dict) # :nodoc:
     contents = dict.map do |key, value|
       assert key.kind_of?(String), "Dictionary keys must be Strings"
       "#{encode(key)}#{encode(value)}"
@@ -117,7 +117,7 @@ module TNetstring
     "#{contents.length}:#{contents}}"
   end
 
-  def self.assert(truthy, message)
+  def self.assert(truthy, message) # :nodoc:
     raise ProcessError.new(message) unless truthy
   end
 end

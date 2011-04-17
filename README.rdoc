@@ -41,7 +41,7 @@ Encoding an object as a tnetstring is similarly straightforward:
   
     #=> '5:12345#'
 
-PLease see the specs in this project for more examples.
+Please see the specs in this project for more examples.
 
 == Installation
 

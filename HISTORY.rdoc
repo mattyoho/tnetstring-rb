@@ -1,3 +1,8 @@
+== 0.3.1 / 2011-04-17
+* API Change
+  * Error conditions raise TNetstring::ProcessError
+* Documentation
+  * Add inline documentation and update README
 == 0.3.0 / 2011-04-16
 * New Feature
   * Can encode primatives according to the tnetstring spec

@@ -13,7 +13,7 @@ module TNetstring
     when '}'
       parse_dictionary(payload)
     when '~'
-      assert payload.length == 0, "Payload must be 0 length for null."
+      assert payload.length == 0, "Payload must be 0 length for null"
       nil
     when '!'
       parse_boolean(payload)
@@ -24,17 +24,17 @@ module TNetstring
   end
 
   def self.parse_payload(data) # :nodoc:
-    assert data, "Invalid data to parse, it's empty."
+    assert data, "Invalid data to parse; it's empty"
     length, extra = data.split(':', 2)
     length = length.to_i
     assert length <= 999_999_999, "Data is longer than the specification allows"
-    assert length >= 0, "Data length cannot be negative!"
+    assert length >= 0, "Data length cannot be negative"
 
     payload, extra = extra[0, length], extra[length..-1]
-    assert extra, "No payload type: %s, %s" % [payload, extra]
+    assert extra, "No payload type: #{payload}, #{extra}"
     payload_type, remain = extra[0,1], extra[1..-1]
 
-    assert payload.length == length, "Data is wrong length %d vs %d" % [length, payload.length]
+    assert payload.length == length, "Data is wrong length: #{length} expected but was #{payload.length}"
     [payload, payload_type, remain]
   end
 
@@ -66,9 +66,10 @@ module TNetstring
 
   def self.parse_pair(data) # :nodoc:
     key, extra = parse(data)
-    assert extra, "Unbalanced dictionary store."
+    assert key.kind_of?(String), "Dictionary keys must be Strings"
+    assert extra, "Unbalanced dictionary store"
     value, extra = parse(extra)
-    assert value, "Got an invalid value, null not allowed."
+    assert value, "Got an invalid value, null not allowed"
 
     [key, value, extra]
   end

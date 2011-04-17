@@ -1,4 +1,4 @@
-== tnetstring-rb
+= tnetstring-rb
 
 Tagged netstrings were conceived by Zed Shaw as a convenient text format for
 exchanging small amounts of data over the network, based on

@@ -1,15 +1,55 @@
 == tnetstring-rb
 
 Tagged netstrings were conceived by Zed Shaw as a convenient text format for
-exchanging small amounts of data over the network. They are meant as an
-alternative to JSON that are easier to handle in low-level network code.
-See his initial implementation here:
-{tagged netstrings in Python}[http://codepad.org/xct0E5ac].
-And see the official specification here:
-{tnetstrings.org}[http://tnetstrings.org/].
+exchanging small amounts of data over the network, based on
+Dan Bernstein's earlier idea, {netstrings}[http://cr.yp.to/proto/netstrings.txt].
+They are meant as an alternative to JSON that are easier to handle in low-level
+network code and simpler to implement.
+
+The following set of intended characteristics of tagged netstrings is
+excerpted from the {official specification}[http://tnetstrings.org/]:
+
+* Trivial to parse in every language without making errors.
+* Resistant to buffer overflows and other problems.
+* Fast and low resource intensive.
+* Makes no assumptions about string contents and can store binary data without escaping or encoding them.
+* Backward compatible with original netstrings.
+* Transport agnostic, so it works with streams, messages, files, anything that's 8-bit clean.
+
+Tagged netstrings support the following primitives: strings, integers, booleans
+(true or false), null (or nil), lists (arrays), and dictionaries (hashes).
+
+Please see the official spec {tnetstrings.org}[http://tnetstrings.org/] for
+further detail.
+
+== Examples
+
+Given a string in tnetstring format, it can be parsed like so:
+
+    str = '5:12345#'
+    TNetstring.parse(str)
+
+    #=> [12345, '']
+
+This returns a tuple that contains the parsed object and any remaining string
+input.
+
+Encoding an object as a tnetstring is similarly straightforward:
+
+    int = 12345
+    TNetstring.encode(int)
+  
+    #=> '5:12345#'
+
+PLease see the specs in this project for more examples.
 
 == Installation
 
 It's a gem, so do the usual:
 
-    [sudo] gem install tnetstring
+    gem install tnetstring
+
+== Attribution
+
+The initial implementation was a port of Zed's first (pre-standardization)
+tnetstrings {implementation in Python}[http://codepad.org/xct0E5ac].

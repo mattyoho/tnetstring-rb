@@ -1,3 +1,5 @@
+require 'tnetstring/errors'
+
 module TNetstring
   def self.parse(tnetstring)
     payload, payload_type, remain = parse_payload(tnetstring)
@@ -78,7 +80,7 @@ module TNetstring
     when "true"
       true
     else
-      raise "Boolean wasn't 'true' or 'false'"
+      assert false, "Boolean wasn't 'true' or 'false'"
     end
   end
 
@@ -116,6 +118,6 @@ module TNetstring
   end
 
   def self.assert(truthy, message)
-    raise message unless truthy
+    raise ProcessError.new(message) unless truthy
   end
 end

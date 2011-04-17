@@ -35,7 +35,7 @@ describe TNetstring do
     end
 
     it "raises on a lengthy null" do
-      expect { TNetstring.parse('1:x~')[0] }.to raise_error
+      expect { TNetstring.parse('1:x~')[0] }.to raise_error(TNetstring::ProcessError)
     end
 
     it "parses a boolean" do
@@ -43,19 +43,19 @@ describe TNetstring do
     end
 
     it "raises on a bad boolean" do
-      expect { TNetstring.parse('5:pants!')[0] }.to raise_error
+      expect { TNetstring.parse('5:pants!')[0] }.to raise_error(TNetstring::ProcessError)
     end
 
     it "raises with negative length" do
-      expect { TNetstring.parse("-1:asd,")[0] }.to raise_error
+      expect { TNetstring.parse("-1:asd,")[0] }.to raise_error(TNetstring::ProcessError)
     end
 
     it "raises with absurd length" do
-      expect { TNetstring.parse("1000000000:asd,")[0] }.to raise_error
+      expect { TNetstring.parse("1000000000:asd,")[0] }.to raise_error(TNetstring::ProcessError)
     end
 
     it "raises on unknown type" do
-      expect { TNetstring.parse('0:)')[0] }.to raise_error
+      expect { TNetstring.parse('0:)')[0] }.to raise_error(TNetstring::ProcessError)
     end
   end
 
@@ -110,7 +110,7 @@ describe TNetstring do
       end
 
       it "rejects non-String keys" do
-        expect { TNetstring.encode({123 => "456"}) }.to raise_error
+        expect { TNetstring.encode({123 => "456"}) }.to raise_error(TNetstring::ProcessError)
       end
     end
   end

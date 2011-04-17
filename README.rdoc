@@ -53,3 +53,9 @@ It's a gem, so do the usual:
 
 The initial implementation was a port of Zed's first (pre-standardization)
 tnetstrings {implementation in Python}[http://codepad.org/xct0E5ac].
+
+== The Future
+
+Before going 1.0 the library will be converted to to FFI for performance
+reasons. A native Java/JRuby implementation is planned to avoid FFI on that
+platform.

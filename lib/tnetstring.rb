@@ -1,6 +1,22 @@
 require 'tnetstring/errors'
 
 module TNetstring
+  # Converts a tnetstring into the encoded data structure.
+  #
+  # It expects a string argument prefixed with a valid tnetstring and
+  # returns a tuple of the parsed object and any remaining string input.
+  #
+  # === Example
+  #
+  #  str = '5:12345#'
+  #  TNetstring.parse(str)
+  #
+  #  #=> [12345, '']
+  #
+  #  str = '11:hello world,abc123'
+  #
+  #  #=> ['hello world', 'abc123']
+  #
   def self.parse(tnetstring)
     payload, payload_type, remain = parse_payload(tnetstring)
     value = case payload_type
@@ -85,6 +101,23 @@ module TNetstring
     end
   end
 
+  # Constructs a tnetstring out of the given object. Valid Ruby object types
+  # include strings, integers, boolean values, nil, arrays, and hashes. Arrays
+  # and hashes may contain any of the previous valid Ruby object types, but
+  # hash keys must be strings.
+  #
+  # === Example
+  #
+  #  int = 12345
+  #  TNetstring.encode(int)
+  #
+  #  #=> '5:12345#'
+  #
+  #  hash = {'hello' => 'world'}
+  #  TNetstring.encode(hash)
+  #
+  #  #=> '16:5:hello,5:world,}'
+  #
   def self.encode(obj)
     if obj.kind_of?(Integer)
       int_str = obj.to_s

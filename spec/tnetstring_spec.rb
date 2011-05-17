@@ -42,6 +42,18 @@ describe TNetstring do
       TNetstring.parse('4:true!')[0].should == true
     end
 
+    it "parses a float" do
+      TNetstring.parse('7:0000.10^')[0].should == 0.1
+    end
+
+    it "parses a negative float" do
+      TNetstring.parse('8:-0000.10^')[0].should == -0.1
+    end
+
+    it "parses an arbitraty array of ints and floats" do
+      TNetstring.parse('25:5:12345#5:67890#6:-00.10^]')[0].should == [12345, 67890, -0.1]
+    end
+
     it "raises on a bad boolean" do
       expect { TNetstring.parse('5:pants!')[0] }.to raise_error(TNetstring::ProcessError)
     end
@@ -66,6 +78,14 @@ describe TNetstring do
 
     it "encodes a string" do
       TNetstring.encode("hello world").should == "11:hello world,"
+    end
+
+    it "encodes a float" do
+      TNetstring.encode(0.01).should == "4:0.01^"
+    end
+
+    it "encodes a negaitive float" do
+      TNetstring.encode(-0.01).should == "5:-0.01^"
     end
 
     context "boolean" do

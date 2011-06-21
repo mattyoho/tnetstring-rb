@@ -34,6 +34,10 @@ describe TNetstring do
       TNetstring.parse('0:~')[0].should == nil
     end
 
+    it "parses a dictionary with a null value" do
+      TNetstring.parse("9:3:key,0:~}")[0].should == {"key" => nil}
+    end
+
     it "raises on a lengthy null" do
       expect { TNetstring.parse('1:x~')[0] }.to raise_error(TNetstring::ProcessError)
     end

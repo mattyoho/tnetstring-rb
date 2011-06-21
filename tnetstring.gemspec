@@ -12,6 +12,11 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.7"
 
   s.files = Dir['lib/**/*']
+  s.extra_rdoc_files = [
+    "HISTORY.rdoc",
+    "MIT-LICENSE",
+    "README.rdoc"
+  ]
 
   s.author            = 'Matt Yoho'
   s.email             = 'mby@mattyoho.com'

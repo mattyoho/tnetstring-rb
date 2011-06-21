@@ -123,9 +123,10 @@ module TNetstring
       "#{int_str.length}:#{int_str}#"
     elsif obj.kind_of?(String) || obj.kind_of?(Symbol)
       "#{obj.length}:#{obj},"
-    elsif obj.is_a?(TrueClass) || obj.is_a?(FalseClass)
-      bool_str = obj.to_s
-      "#{bool_str.length}:#{bool_str}!"
+    elsif obj.is_a?(TrueClass)
+      "4:true!"
+    elsif obj.is_a?(FalseClass)
+      "5:false!"
     elsif obj == nil
       "0:~"
     elsif obj.kind_of?(Array)

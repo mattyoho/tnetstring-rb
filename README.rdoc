@@ -38,7 +38,7 @@ Encoding an object as a tnetstring is similarly straightforward:
 
     int = 12345
     TNetstring.encode(int)
-  
+
     #=> '5:12345#'
 
 Please see the specs in this project for more examples.
@@ -56,6 +56,6 @@ tnetstrings {implementation in Python}[http://codepad.org/xct0E5ac].
 
 == The Future
 
-Before going 1.0 the library will be converted to to FFI for performance
-reasons. A native Java/JRuby implementation is planned to avoid FFI on that
-platform.
+Before going 1.0 the library will be converted to a native gem for performance
+reasons. A native Java/JRuby implementation is planned as well. The current pure
+Ruby gem may be ported to a tnetstring-pure library.

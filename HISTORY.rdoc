@@ -1,3 +1,11 @@
+== 0.3.2 / 2011-06-21
+* Bug Fix
+  * Parsing Hashes with null values now works
+* Feature Addition
+  * Hash keys may now be symbols
+  * TNetstring.dump method introduced, identical to TNetstring.encode
+* Deprecation
+  * TNetstring.encode deprecated in favor of TNetstring.dump, aligning with other implementations.
 == 0.3.1 / 2011-04-17
 * API Change
   * Error conditions raise TNetstring::ProcessError

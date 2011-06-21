@@ -82,7 +82,7 @@ module TNetstring
 
   def self.parse_pair(data) # :nodoc:
     key, extra = parse(data)
-    assert key.kind_of?(String), "Dictionary keys must be Strings"
+    assert key.kind_of?(String) || key.kind_of?(Symbol), "Dictionary keys must be Strings or Symbols"
     assert extra, "Unbalanced dictionary store"
     value, extra = parse(extra)
     assert value, "Got an invalid value, null not allowed"
@@ -122,7 +122,7 @@ module TNetstring
     if obj.kind_of?(Integer)
       int_str = obj.to_s
       "#{int_str.length}:#{int_str}#"
-    elsif obj.kind_of?(String)
+    elsif obj.kind_of?(String) || obj.kind_of?(Symbol)
       "#{obj.length}:#{obj},"
     elsif obj.is_a?(TrueClass) || obj.is_a?(FalseClass)
       bool_str = obj.to_s
@@ -145,7 +145,7 @@ module TNetstring
 
   def self.encode_dictionary(dict) # :nodoc:
     contents = dict.map do |key, value|
-      assert key.kind_of?(String), "Dictionary keys must be Strings"
+      assert key.kind_of?(String) || key.kind_of?(Symbol), "Dictionary keys must be Strings or Symbols"
       "#{encode(key)}#{encode(value)}"
     end.join
     "#{contents.length}:#{contents}}"

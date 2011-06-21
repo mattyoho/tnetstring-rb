@@ -85,7 +85,6 @@ module TNetstring
     assert key.kind_of?(String) || key.kind_of?(Symbol), "Dictionary keys must be Strings or Symbols"
     assert extra, "Unbalanced dictionary store"
     value, extra = parse(extra)
-    assert value, "Got an invalid value, null not allowed"
 
     [key, value, extra]
   end

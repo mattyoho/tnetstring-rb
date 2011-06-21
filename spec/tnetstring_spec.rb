@@ -64,66 +64,80 @@ describe TNetstring do
   end
 
   context "encoding" do
-    it "encodes an integer" do
-      TNetstring.encode(42).should == "2:42#"
-    end
+    before { TNetstring.stub(:warn) }
 
-    it "encodes a string" do
-      TNetstring.encode("hello world").should == "11:hello world,"
-    end
-
-    context "boolean" do
-      it "encodes true as 'true'" do
-        TNetstring.encode(true).should == "4:true!"
-      end
-
-      it "encodes false as 'false'" do
-        TNetstring.encode(false).should == "5:false!"
-      end
-    end
-
-    it "encodes nil" do
+    it "delegates to TNetstring.dump" do
+      TNetstring.should_receive(:dump).with(nil).and_return("0:~")
       TNetstring.encode(nil).should == "0:~"
     end
 
+    it "calls Kernel#warn" do
+      TNetstring.should_receive(:warn)
+      TNetstring.encode(nil)
+    end
+  end
+
+  context "dumping" do
+    it "dumps an integer" do
+      TNetstring.dump(42).should == "2:42#"
+    end
+
+    it "dumps a string" do
+      TNetstring.dump("hello world").should == "11:hello world,"
+    end
+
+    context "boolean" do
+      it "dumps true as 'true'" do
+        TNetstring.dump(true).should == "4:true!"
+      end
+
+      it "dumps false as 'false'" do
+        TNetstring.dump(false).should == "5:false!"
+      end
+    end
+
+    it "dumps nil" do
+      TNetstring.dump(nil).should == "0:~"
+    end
+
     context "arrays" do
-      it "encodes an empty array" do
-        TNetstring.encode([]).should == "0:]"
+      it "dumps an empty array" do
+        TNetstring.dump([]).should == "0:]"
       end
 
-      it "encodes an array of arbitrary elements" do
-        TNetstring.encode(["cat", false, 123]).should == "20:3:cat,5:false!3:123#]"
+      it "dumps an array of arbitrary elements" do
+        TNetstring.dump(["cat", false, 123]).should == "20:3:cat,5:false!3:123#]"
       end
 
-      it "encodes nested arrays" do
-        TNetstring.encode(["cat", [false, 123]]).should == "24:3:cat,14:5:false!3:123#]]"
+      it "dumps nested arrays" do
+        TNetstring.dump(["cat", [false, 123]]).should == "24:3:cat,14:5:false!3:123#]]"
       end
     end
 
     context "hashes" do
-      it "encodes an empty hash" do
-        TNetstring.encode({}).should == "0:}"
+      it "dumps an empty hash" do
+        TNetstring.dump({}).should == "0:}"
       end
 
-      it "encodes an arbitrary hash of primitives and arrays" do
-        TNetstring.encode({"hello" => [12345678901, 'this']}).should == '34:5:hello,22:11:12345678901#4:this,]}'
+      it "dumps an arbitrary hash of primitives and arrays" do
+        TNetstring.dump({"hello" => [12345678901, 'this']}).should == '34:5:hello,22:11:12345678901#4:this,]}'
       end
 
-      it "encodes nested hashes" do
-        TNetstring.encode({"hello" => {"world" => 42}}).should == '25:5:hello,13:5:world,2:42#}}'
+      it "dumps nested hashes" do
+        TNetstring.dump({"hello" => {"world" => 42}}).should == '25:5:hello,13:5:world,2:42#}}'
       end
 
       it "accepts symbols as keys" do
-        TNetstring.encode({ :hello => {"world" => 24}}).should == '25:5:hello,13:5:world,2:24#}}'
+        TNetstring.dump({ :hello => {"world" => 24}}).should == '25:5:hello,13:5:world,2:24#}}'
       end
 
       it "rejects non-String keys" do
-        expect { TNetstring.encode({123 => "456"}) }.to raise_error(TNetstring::ProcessError)
+        expect { TNetstring.dump({123 => "456"}) }.to raise_error(TNetstring::ProcessError)
       end
     end
 
     it "rejects non-primitives" do
-      expect { TNetstring.encode(Object.new) }.to raise_error(TNetstring::ProcessError)
+      expect { TNetstring.dump(Object.new) }.to raise_error(TNetstring::ProcessError)
     end
   end
 end

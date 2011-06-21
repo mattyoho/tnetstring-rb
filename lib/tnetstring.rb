@@ -100,6 +100,8 @@ module TNetstring
     end
   end
 
+  # <b>DEPRECATED:</b> Please use <tt>dump</tt> instead.
+  #
   # Constructs a tnetstring out of the given object. Valid Ruby object types
   # include strings, integers, boolean values, nil, arrays, and hashes. Arrays
   # and hashes may contain any of the previous valid Ruby object types, but
@@ -108,16 +110,38 @@ module TNetstring
   # === Example
   #
   #  int = 12345
-  #  TNetstring.encode(int)
+  #  TNetstring.dump(int)
   #
   #  #=> '5:12345#'
   #
   #  hash = {'hello' => 'world'}
-  #  TNetstring.encode(hash)
+  #  TNetstring.dump(hash)
   #
   #  #=> '16:5:hello,5:world,}'
   #
   def self.encode(obj)
+    warn "[DEPRECATION] `encode` is deprecated.  Please use `dump` instead."
+    dump obj
+  end
+
+  # Constructs a tnetstring out of the given object. Valid Ruby object types
+  # include strings, integers, boolean values, nil, arrays, and hashes. Arrays
+  # and hashes may contain any of the previous valid Ruby object types, but
+  # hash keys must be strings.
+  #
+  # === Example
+  #
+  #  int = 12345
+  #  TNetstring.dump(int)
+  #
+  #  #=> '5:12345#'
+  #
+  #  hash = {'hello' => 'world'}
+  #  TNetstring.dump(hash)
+  #
+  #  #=> '16:5:hello,5:world,}'
+  #
+  def self.dump(obj)
     if obj.kind_of?(Integer)
       int_str = obj.to_s
       "#{int_str.length}:#{int_str}#"
@@ -130,23 +154,23 @@ module TNetstring
     elsif obj == nil
       "0:~"
     elsif obj.kind_of?(Array)
-      encode_list(obj)
+      dump_list(obj)
     elsif obj.kind_of?(Hash)
-      encode_dictionary(obj)
+      dump_dictionary(obj)
     else
       assert false, "Object must be of a primitive type: #{obj.inspect}"
     end
   end
 
-  def self.encode_list(list) # :nodoc:
-    contents = list.map {|item| encode(item)}.join
+  def self.dump_list(list) # :nodoc:
+    contents = list.map {|item| dump(item)}.join
     "#{contents.length}:#{contents}]"
   end
 
-  def self.encode_dictionary(dict) # :nodoc:
+  def self.dump_dictionary(dict) # :nodoc:
     contents = dict.map do |key, value|
       assert key.kind_of?(String) || key.kind_of?(Symbol), "Dictionary keys must be Strings or Symbols"
-      "#{encode(key)}#{encode(value)}"
+      "#{dump(key)}#{dump(value)}"
     end.join
     "#{contents.length}:#{contents}}"
   end

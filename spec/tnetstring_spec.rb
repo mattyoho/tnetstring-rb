@@ -109,6 +109,10 @@ describe TNetstring do
         TNetstring.encode({"hello" => {"world" => 42}}).should == '25:5:hello,13:5:world,2:42#}}'
       end
 
+      it "accepts symbols as keys" do
+        TNetstring.encode({ :hello => {"world" => 24}}).should == '25:5:hello,13:5:world,2:24#}}'
+      end
+
       it "rejects non-String keys" do
         expect { TNetstring.encode({123 => "456"}) }.to raise_error(TNetstring::ProcessError)
       end

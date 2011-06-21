@@ -1,3 +1,6 @@
+== 0.3.3 / 2011-06-21
+* Documentation
+  * Include documentation files in gem
 == 0.3.2 / 2011-06-21
 * Bug Fix
   * Parsing Hashes with null values now works

@@ -2,8 +2,28 @@ require 'spec_helper'
 
 describe TNetstring do
   context "parsing" do
-    it "parses an integer" do
-      TNetstring.parse('5:12345#')[0].should == 12345
+    context "integers" do
+      it "parses a positive integer" do
+        TNetstring.parse('5:12345#')[0].should == 12345
+      end
+
+      it "parses a negative integer" do
+        TNetstring.parse('6:-12345#')[0].should == -12345
+      end
+    end
+
+    context "floats" do
+      it "parses a positve float" do
+        TNetstring.parse('3:3.5^')[0].should == 3.5
+      end
+
+      it "parses a negative float" do
+        TNetstring.parse('5:-3.14^')[0].should == -3.14
+      end
+
+      it "parses a float with leading zeros" do
+        TNetstring.parse('7:-000.14^')[0].should == -0.14
+      end
     end
 
     it "parses an empty string" do
@@ -78,8 +98,28 @@ describe TNetstring do
   end
 
   context "dumping" do
-    it "dumps an integer" do
-      TNetstring.dump(42).should == "2:42#"
+    context "integers" do
+      it "dumps a positive integer" do
+        TNetstring.dump(42).should == "2:42#"
+      end
+
+      it "dumps a negative integer" do
+        TNetstring.dump(-42).should == "3:-42#"
+      end
+    end
+
+    context "floats" do
+      it "dumps a positive float" do
+        TNetstring.dump(12.3).should == "4:12.3^"
+      end
+
+      it "dumps a negative float" do
+        TNetstring.dump(-2.3).should == "4:-2.3^"
+      end
+
+      it "dumps a float with integral value" do
+        TNetstring.dump(-42.0).should == "5:-42.0^"
+      end
     end
 
     it "dumps a string" do

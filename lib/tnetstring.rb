@@ -22,6 +22,8 @@ module TNetstring
     value = case payload_type
     when '#'
       payload.to_i
+    when '^'
+      payload.to_f
     when ','
       payload
     when ']'
@@ -145,6 +147,9 @@ module TNetstring
     if obj.kind_of?(Integer)
       int_str = obj.to_s
       "#{int_str.length}:#{int_str}#"
+    elsif obj.kind_of?(Float)
+      float_str = obj.to_s
+      "#{float_str.length}:#{float_str}^"
     elsif obj.kind_of?(String) || obj.kind_of?(Symbol)
       "#{obj.length}:#{obj},"
     elsif obj.is_a?(TrueClass)
